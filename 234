@@ -1,0 +1,35 @@
+1. simple: reverse then compare O(n), O(n) 2. runner to get to middle, then compare O(n), O(N) 3. advanced((runner to get middle, then reverse left half list then compare) O(n), O(1) - tricky
+
+# 1
+class Solution(object):
+    def isPalindrome(self, head):
+        1. copy and reverse
+        nums = []
+        root = head
+        while head != None:
+            nums.append(head.val)
+            head = head.next
+        nums = nums[:: - 1]
+        for i in nums:
+            if i != root.val:
+                return False
+            root = root.next
+        return True
+#2
+class Solution(object):
+    def isPalindrome(self, head):         fast = head
+        slow = head
+        nums = [] # stack usage
+        while fast!=  None and fast.next != None:
+            nums.append(slow.val)
+            slow = slow.next
+            fast = fast.next.next
+        if fast != None:
+            slow = slow.next # get to middle(tricky)
+        while len(nums):
+            if nums.pop() != slow.val:
+                return False
+            slow = slow.next
+        return True
+
+solution 2 is trick: 1. if can run condition: (first time failed): while fast != None and fast.next != None 2. if odd numbers condition: if fast != None: # odd elements, slow should skip the middle elements     slow = slow.next 
