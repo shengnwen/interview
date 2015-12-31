@@ -1,0 +1,27 @@
+Same idea of 189, except for I need to parse all words
+
+def reverse(s, lo, hi):
+    if lo >= hi:
+        return
+    rvL = (hi - lo + 1) >> 1
+    for idx in range(rvL):
+        tmp = s[lo + idx]
+        s[lo + idx] = s[hi - idx]
+        s[hi - idx] = tmp
+class Solution(object):
+    def reverseWords(self, s):
+        n = len(s)
+        if n <= 1:
+            return
+        idx = 0
+        while idx < n:
+            while (idx < n and s[idx] == ' '):
+                idx += 1
+            lo = idx
+            while (idx < n and s[idx] != ' '):
+                idx += 1
+            hi = idx - 1
+            reverse(s, lo, hi)
+        reverse(s, 0, n - 1)
+
+typo: and -> ‘&&’ 

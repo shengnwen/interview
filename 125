@@ -1,0 +1,18 @@
+class Solution(object):
+    def isPalindrome(self, s):
+        start, end, n = 0, len(s) - 1, len(s)
+        s = s.lower()
+        while start < end:
+            while start < n and (not s[start].isalnum()):
+                start += 1
+            if start == n:
+                break
+            while end >= start and (not s[end].isalnum()):
+                end -= 1
+            if start > end:
+                break
+            if s[start] != s[end]:
+                return False
+            start += 1
+            end -= 1
+        return True

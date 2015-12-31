@@ -1,0 +1,53 @@
+1. flags: row[], col[] O(M * N) O(M + N) 2. matrix[0][0] represent row0, colZero represent col 0 3. advanced (zero rows and col in reverse order)
+
+class Solution(object):
+    def setZeroes(self, matrix):
+        colZero = False
+        if len(matrix) == 0 or len(matrix[0]) == 0:
+            return
+        M, N = len(matrix), len(matrix[0])
+        for i in range(M):
+            for j in range(N):
+                if j == 0:
+                    if matrix[i][0] == 0:
+                        colZero = True
+                elif matrix[i][j] == 0:
+                    matrix[i][0] = 0
+                    matrix[0][j] = 0
+        for i in range(1, M):
+            if matrix[i][0] == 0:
+                for j in range(1, N):
+                    matrix[i][j] = 0
+        for j in range(1, N):
+            if matrix[0][j] == 0:
+                for i in range(1, M):
+                    matrix[i][j] = 0
+        if matrix[0][0] == 0:
+            for j in range(N):
+                matrix[0][j] = 0
+        if colZero:
+            for i in range(M):
+                matrix[i][0] = 0
+
+class Solution(object):
+    def setZeroes(self, matrix):
+        colZero = False
+        if len(matrix) == 0 or len(matrix[0]) == 0:
+            return
+        M, N = len(matrix), len(matrix[0])
+        for row in range(M):
+            for col in range(N):
+                if col == 0:
+                    if matrix[row][0] == 0:
+                        colZero = True
+                elif matrix[row][col] == 0:
+                    matrix[row][0] = 0
+                    matrix[0][col] = 0
+        for row in range(M - 1, -1, -1):
+            for col in range(N - 1, 0, -1):
+                if matrix[0][col] == 0 or matrix[row][0] == 0:
+                    matrix[row][col] = 0
+            if colZero:
+                matrix[row][0] = 0
+
+First time WA: replace row 0, col0 first. This step will make all flag information lost. should handle row (1 - M), col (1 - N) first. Then at last handle row 0 and col 0 Advanced solution WA: type ‘=‘ to ‘==‘ 

@@ -1,0 +1,35 @@
+1. using the idea of reverse xy - > yx using xyxy (O(n), O(n)) 2. reverse first n - k, last k elements; then reverse whole string O(n), O(1)
+
+class Solution(object):
+    # nums = xy (x = nums[0:n-k], y = [n - k:n] )
+    # xyxy = [nums,nums] (2n elemetns)
+    # yx = xyxy[n - k: 2 * n - k]
+    def rotate(self, nums, k):
+        n = len(nums)
+        k = k % n
+        xyxy = nums + nums
+        for i in range(n):
+            nums[i] = xyxy[n - k + i]
+        print nums
+        
+
+def reverse(nums, lo, hi):
+    if lo >= hi:
+        return
+    reverseL = (hi - lo + 1) >> 1
+    for idx in range(reverseL):
+        temp = nums[lo + idx]
+        nums[lo + idx] = nums[hi - idx]
+        nums[hi - idx] = temp
+    print nums
+class Solution(object):
+    def rotate(self, nums, k):
+        n = len(nums)
+        k = k % n
+        if n <= 1 or k == 0:
+            return
+        reverse(nums, 0, n - k - 1)
+        reverse(nums, n - k, n - 1)
+        reverse(nums, 0, n - 1)
+
+1. first trying to use xyyx, but it seems because of pass by reference the array hasn’t been changed outside. if i need to really modify a array, I need to modify each element  2. for solution 2: when calcite how long of the rotation, I wrongly use (hi - lo) >> 1 (actually there are (hi - lo + 1) elements)

@@ -1,0 +1,26 @@
+1. use hash list O(N), O(k) 2. 2 pointers(runner) O(N*N), O(1) 3. recursive O(N) O(1) [don’t understand]
+class Solution(object): 
+    def deleteDuplicates(self, head):
+        nums = []
+        pre = None
+        node = head
+        while node is not None:
+            if node.val not in nums:
+                pre = node
+                nums.append(node.val)
+            else:
+                pre.next = node.next
+            node = node.next
+        return head
+"# 2 pointers class Solution(object):
+    def deleteDuplicates(self, head):
+        current = head
+        while current is not None:
+            runner = current
+            while runner.next is not None:
+                if runner.next.val == current.val:
+                    runner.next = runner.next.next
+                else:
+                    runner = runner.next
+            current = current.next
+        return head"
