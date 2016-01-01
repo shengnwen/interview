@@ -1,0 +1,21 @@
+def inorderHelper(allVal, node):
+    if node == None:
+        return
+    inorderHelper(allVal, node.left)
+    allVal.append(node.val)
+    inorderHelper(allVal, node.right)
+class Solution(object):
+    def isValidBST(self, root):
+        allVal = []
+        inorderHelper(allVal, root)
+        if len(allVal) <= 1:
+            return True
+        pre = None
+        for i in allVal:
+            if pre == None:
+                pre = i
+                continue
+            if i <= pre:
+                return False
+            pre = i
+        return True

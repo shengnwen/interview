@@ -1,0 +1,12 @@
+
+def preHelper(allNode, node):
+    if node == None:
+        return
+    allNode.append(node.val)
+    preHelper(allNode, node.left)
+    preHelper(allNode, node.right)
+class Solution(object):
+    def preorderTraversal(self, root):
+        allNode = []
+        preHelper(allNode, root)
+        return allNode
