@@ -1,0 +1,45 @@
+1. solution 1: O(1) push, O(n) pop, O(1) top,empty, O(n) space 2. solution: only push handle all sequence thing, O(N), code more concise
+
+from collections import deque
+class Stack(object):
+    def __init__(self):
+        self.queue = deque()
+        self.newest = None
+    def push(self, x):
+        self.queue.append(x)
+        self.newest = x
+    def pop(self):
+        n = len(self.queue)
+        for i in range(n - 1):
+            oldest = self.queue[0]
+            self.queue.popleft()
+            self.queue.append(oldest)
+            self.newest = oldest
+        self.queue.popleft()
+        if len(self.queue) == 0:
+            self.newest = None
+    def top(self):
+        return self.newest
+    def empty(self):
+        return self.newest == None
+
+
+# solution 2
+class Stack(object):
+    def __init__(self):
+        self.queue = collections.deque()
+    def push(self, x):
+        self.queue.append(x)
+        n = len(self.queue)
+        for i in range(n - 1):
+            front = self.queue[0]
+            self.queue.popleft()
+            self.queue.append(front)
+    def pop(self):
+        self.queue.popleft()
+    def top(self):
+        return self.queue[0]
+    def empty(self):
+        return len(self.queue) == 0
+
+

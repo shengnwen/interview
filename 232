@@ -1,0 +1,26 @@
+1. using 2 stacks, O(N) pop, O(N) peek, O(1) push, O(n) space
+
+class Queue(object):
+    def __init__(self):
+        self.stackNewest = []
+        self.stackOldest = []
+    def push(self, x):
+        self.stackNewest.append(x)
+    def pop(self):
+        if self.empty():
+            return
+        if len(self.stackOldest) == 0:
+            while len(self.stackNewest) != 0:
+                self.stackOldest.append(self.stackNewest.pop())
+        self.stackOldest.pop()
+    def peek(self):
+        if len(self.stackOldest) == 0:
+            while len(self.stackNewest) != 0:
+                self.stackOldest.append(self.stackNewest.pop())
+        return self.stackOldest[-1]
+    def empty(self):
+        return len(self.stackOldest) + len(self.stackNewest) == 0
+
+python stack operation using array: 1. stack.append(), stack.pop(), stack[-1] = peek  python queue using deque from collections import deque queue.append() queue.popleft()
+
+
