@@ -1,0 +1,14 @@
+1. faster + runner (faster is k step further, then when faster get to None, slower get to the right position)
+
+class Solution(object):
+    def removeNthFromEnd(self, head, n):
+        superHead = pre = ListNode(0)
+        pre.next = fast = slow = head
+        for i in range(n):
+            fast = fast.next
+        while fast:
+            pre = slow
+            fast = fast.next
+            slow = slow.next
+        pre.next = slow.next
+        return superHead.next

@@ -1,0 +1,29 @@
+1. recursive solution O(n), O(1); recursively remove duplicated ones 2. iterative solution O(n), O(1)
+
+class Solution(object):
+    def deleteDuplicates(self, head):
+        if head == None or head.next == None:
+            return head
+        if head.val == head.next.val:
+            while head.next and head.val == head.next.val:
+                head = head.next
+            return self.deleteDuplicates(head.next)
+        else:
+            head.next = self.deleteDuplicates(head.next)
+        return head
+
+class Solution(object):
+    def deleteDuplicates(self, head):
+        superHead = ListNode(0)
+        superHead.next = head
+        pre = superHead
+        while head:
+            if head.next and head.val == head.next.val:
+                while head.next and head.val == head.next.val:
+                    head = head.next
+                pre.next = head.next
+                head = head.next
+            else:
+                pre = head
+                head = head.next
+        return superHead.next

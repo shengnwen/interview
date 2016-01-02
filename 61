@@ -1,0 +1,28 @@
+1. simple: faster + runner solution
+
+def length(head):
+    cnt = 0 # count
+    while head != None:
+        head = head.next
+        cnt += 1
+    return cnt
+class Solution(object):
+    def rotateRight(self, head, k):
+        if k == 0 or head == None or head.next == None:
+            return head
+        n = length(head)
+        if n == 0 or  k % n == 0:
+            return head
+        k = k % n
+        slow = fast = head
+        for i in range(k):
+            fast = fast.next
+        pre1 = pre2 = None
+        while fast != None:
+            pre1 = slow
+            pre2 = fast
+            slow = slow.next
+            fast = fast.next
+        pre1.next = None
+        pre2.next = head
+        return slow

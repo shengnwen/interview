@@ -1,0 +1,15 @@
+balanced binary tree: no node that the depth  of the 2 subtrees differ more than 1
+
+def balanceHelper(node):
+    if node == None:
+        return 0
+    left = balanceHelper(node.left)
+    right = balanceHelper(node.right)
+    if left != -1 and right != -1 and abs(left - right) <= 1:
+        return max(left, right) + 1
+    else:
+        return -1
+        
+class Solution(object):
+    def isBalanced(self, root):
+        return balanceHelper(root) != -1

@@ -1,0 +1,18 @@
+depth: the number of nodes along the longest path solution 2: compressed one, return value is current level, no need to pass by parameter
+
+def depHelper(cur, node):
+    if node == None:
+        return cur
+    else:
+        return max(depHelper(cur + 1, node.left), depHelper(cur + 1, node.right))
+class Solution(object):
+    def maxDepth(self, root):
+        return depHelper(0, root)
+
+def depHelper(node):
+    if node == None:
+        return 0
+    return 1 + max(depHelper(node.left), depHelper(node.right))
+class Solution(object):
+    def maxDepth(self, root):
+        return depHelper(root)

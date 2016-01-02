@@ -11,6 +11,18 @@ class Solution(object):
             node = next
         return pre
 
+another solution keep start always unchanged, then point to last reverse one: helpful for more general reverse eg. mth node to nth node
+    def reverseList(self, head):
+        superHead = ListNode(0)
+        superHead.next = head
+        start = superHead.next
+        while start != None and start.next != None:
+            then = start.next
+            start.next = then.next
+            then.next = superHead.next
+            superHead.next = then
+        return superHead.next
+
 "def helper(pre, node):
     if node is None:
         return pre

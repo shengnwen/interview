@@ -1,0 +1,35 @@
+use dummy node and keep pre node unchanged  make use of  find middle point module (need dummy supper head)  reverse linked list module
+
+class Solution(object):
+    def reorderList(self, head):
+        if head == None or head.next == None:
+            return 
+        superHead = ListNode(0)
+        superHead.next = head
+        fast = slow = superHead
+        while fast != None and fast.next != None:
+            print slow.val, fast.val
+            slow = slow.next
+            fast = fast.next.next
+        print slow.val
+        start = slow.next
+        while start != None and start.next != None:
+            print start.val
+            then = start.next
+            start.next = then.next
+            then.next = slow.next
+            slow.next = then
+        p1 = head
+        p2 = slow.next
+        while p2:
+            np1, np2 = p1.next, p2.next
+            p1.next = p2
+            p2.next = np1
+            p1, p2 = np1, np2
+        if fast == None:
+            start.next = slow
+            slow.next = None
+        else:
+            start.next = None
+
+summery modules

@@ -1,0 +1,20 @@
+use global last node
+
+last = None
+def inorder(node, p):
+    global last
+    if node == None:
+        return None
+    left = inorder(node.left, p)
+    if left!= None:
+        return left
+    if last == p:
+        return node
+    last = node
+    return inorder(node.right, p)
+class Solution(object):
+    def inorderSuccessor(self, root, p):
+        global last
+        last = None
+        return inorder(root, p)
+
