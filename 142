@@ -1,23 +1,0 @@
-1. faster = 2 * slow, check if meet somewhere 2. move slow to head, meet in the cycle start place(speed same) prove if in “crace code interview” O(C), O(1) c is cycle length
-
-class Solution(object):
-    def detectCycle(self, head):
-        if head == None:
-            return None
-        fast = head
-        slow = head
-        while fast != None and fast.next != None:
-            slow = slow.next
-            fast = fast.next.next
-            if fast == slow:
-                break
-        if fast is None or fast.next is None:
-            return None
-        slow = head
-        while slow != fast:
-            slow = slow.next
-            fast = fast.next
-        return fast
-        
-
-fail for getting correct conidtion: fast, slow  = head while fast != None and fast.next != None:     fast = fast.next.next     slow = slow.next     if fast == slow:          break if fast == None or fast.next == None:     # no cycle     return None

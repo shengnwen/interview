@@ -1,32 +1,0 @@
-1. cycle : must have at least 1 element; faster can always catch slower; if faster pointer get to end (None), then there is no cycle O(N), O(1)  2. solution2 have same idea, but more general and modular with other similar questions such as Q142.
-
-class Solution(object):
-    def hasCycle(self, head):
-        # cycle must have at least 1 element
-        if head == None:
-            return False
-        fast = head.next
-        slow = head
-        while fast != None and slow != fast:
-            slow = slow.next
-            if fast.next is None:
-                return False
-            fast = fast.next.next
-        return fast != None
-
-
-class Solution(object):
-    def hasCycle(self, head):
-        # cycle must have at least 1 element
-        if head == None:
-            return False
-        fast = head
-        slow = head
-        while fast != None and fast.next != None:
-            slow = slow.next
-            fast = fast.next.next
-            if fast == slow:
-                break
-        return fast != None and fast.next != None
-
-first fail in checking in last statement (return fast == None -> should be return fast != None) if fast == None: get to end, no cycle

@@ -1,40 +1,0 @@
-divide into methods: 1. addNodes(first, last, carry) 2. size(node) 3. make sure l1 is always the relative longer one to simplify other operations
-
-def size(node):
-    count = 0
-    while node != None:
-        node = node.next
-        count += 1
-    return count
-def addNode(first, last, carry):
-    val = carry
-    lastVal = 0 if last == None else last.val
-    val += first.val + lastVal
-    carry = 1 if val >= 10 else 0
-    node = ListNode(val % 10)
-    return (node, carry) 
-class Solution(object):
-    def addTwoNumbers(self, l1, l2):
-        len1, len2 = size(l1), size(l2) # l1 is longer
-        superHead = ListNode(0)
-        pre = superHead
-        if len1 != len2:
-            if len1 < len2:
-                temp, templen = l1, len1
-                l1, len1 = l2, len2
-                l2, len2 = temp, templen
-        carry = 0
-        while l1:
-            node, carry = addNode(l1, l2, carry)
-            pre.next = node
-            pre = node
-            l1 = l1.next
-            if l2 == None or l2.next == None:
-                l2 = None
-            else:
-                l2 = l2.next
-        if carry == 1:
-            pre.next = ListNode(1)
-        return superHead.next
-
-1. first fail because of rising the requirement 8->9 + 1 should be 9->9, instead of 9, 0 2. forget to insert last carry 1 node into the end

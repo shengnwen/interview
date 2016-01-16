@@ -1,15 +1,0 @@
-1. rotate layer by layer (layer number = n / 2), each time layer length = n - layer * 2 - 1 (layer start from 1) O(n * n), in place
-
-solution1: class Solution(object):
-    def rotate(self, matrix):
-        if matrix is None or len(matrix) <= 1:
-            return
-        n = len(matrix)
-        for layer in range(n / 2):
-            rotateL = n - layer * 2 - 1
-            for idx in range(rotateL):
-                tmp = matrix[layer][layer + idx]
-                matrix[layer][layer + idx] = matrix[layer + rotateL - idx][layer]
-                matrix[layer + rotateL - idx][layer] = matrix[layer + rotateL][layer + rotateL - idx]
-                matrix[layer + rotateL][layer + rotateL - idx] = matrix[layer + idx][layer + rotateL]
-                matrix[layer + idx][layer + rotateL] = tmp
