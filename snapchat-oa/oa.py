@@ -1,0 +1,2 @@
+def sol():
+    words = ['whatsoever', '']

@@ -1,0 +1,35 @@
+1. shuffle first O(n), O(1)
+# i (n - 1 ~ 1)
+# generate j (0 ~ i)
+# swap i, j
+import random
+def shuffle(nums):
+    n = len(nums)
+    for i in range(n - 1, 0, -1): # i =  n - 1 ~ 1
+        j = random.randint(0, i) # j = 0 ~ i
+        nums[j], nums[i] = nums[i], nums[j]
+
+2. quick sort:
+# if lo < hi then sort
+def quicksort(nums, lo, hi):
+    if lo < hi:
+        j = partition(nums, lo, hi)
+        quicksort(nums, lo, j - 1)
+        quicksort(nums, j + 1, hi)
+3. partition:
+# pivot is chosen as nums[lo]
+# i, j start from lo + 1, hi
+# swap j with lo, then return j
+def partition(nums, lo, hi):
+    pivot = nums[lo]
+    i, j = lo + 1, hi
+    while i <= j:
+        while i <= hi and nums[i] < pivot:
+            i += 1
+        while j >= i and nums[j] > pivot:
+            j -= 1
+        if i <= j:
+            nums[i], nums[j] = nums[j], nums[i]
+            i, j = i + 1, j - 1
+    nums[lo], nums[j] = nums[j], nums[lo]
+    return j

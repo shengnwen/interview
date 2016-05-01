@@ -1,0 +1,109 @@
+0. insertion sort O(n*n), O(1)
+1. bubble sort O(n^2), O(1) 
+2. selection sort O(n^2), O(1)
+3. mergesort O(nlogn) O(n) = n + n/2 + n/4 + n/8 + n/16 + ... 
+4. quicksort O(nlogn average, O(n^2 worst case))
+5. heapsort O(nlogn), O(1) http://rosettacode.org/wiki/Sorting_algorithms/Heapsort#Python (here using a max heap, each time swap max one with end, end -= 1)
+6. count sort/ radix sort
+
+5. heapsort(heapify first, then extract max then last)
+def heapsort(lst):
+    # heapify
+    for start in range((len(lst) - 2) / 2, -1, -1):
+        siftdown(lst, start, len(lst) - 1)
+    # extract max then
+    for end in range(len(lst) - 1, 0, -1):
+        lst[end], lst[0] = lst[0], lst[end]
+        siftdown(lst, 0, end - 1)
+def siftdown(lst, start, end):
+    root = start
+    while True:
+        child = root * 2 + 1
+        if child > end:
+            break
+        if child + 1 <= end and lst[child] < lst[child + 1]:
+            child += 1
+        if lst[root] < lst[child]:
+            lst[root], lst[child] = lst[child], lst[root]
+            root = child
+        else:
+            break
+4. quick sort: each time find pivot, then swap all smaller one with bigger one in the right. then sub quick sort left half and right half [0:index] [index:] (0 ~ index - 1) (index ~ )
+def quicksort(nums, lo, hi):
+    if lo < hi:
+        j = partition(nums, lo, hi)
+        quicksort(nums, lo, j - 1)
+        quicksort(nums, j + 1, hi)
+def partition(nums, lo, hi):
+    pivot = nums[lo]
+    i, j = lo + 1, hi
+    while i <= j:
+        while i <= hi and nums[i] < pivot:
+            i += 1
+        while j >= i and nums[j] > pivot:
+            j -= 1
+        if i <= j:
+            tmp = nums[i]
+            nums[i] = nums[j]
+            nums[j] = tmp
+            i += 1
+            j -= 1
+    nums[lo], nums[j] = nums[j], nums[lo]
+    return j
+
+3. mergesort: each time sort left half, and right half then merge
+    def mergesort(self,nums): # O(nlogn) O(n) = n + n / 2 + n / 4 + n / 8
+        if len(nums) > 1:
+            mid = len(nums) >> 1
+            leftHalf = nums[:mid]
+            rightHalf = nums[mid:]
+            self.mergesort(leftHalf)
+            self.mergesort(rightHalf)
+            
+            i = j = k = 0
+            while i < len(leftHalf) and j < len(rightHalf):
+                if leftHalf[i] < rightHalf[j]:
+                    nums[k] = leftHalf[i]
+                    i += 1
+                else:
+                    nums[k] = rightHalf[j]
+                    j += 1
+                k += 1
+            while i < len(leftHalf):
+                nums[k] = leftHalf[i]
+                i += 1
+                k += 1
+            while j < len(rightHalf):
+                nums[k] = rightHalf[j]
+                j += 1
+                k += 1
+
+2. selection sort: each time traverse all unsorted elements and find smallest one, swap to start, untill all sorted
+    def selectionsort(self, nums):
+        n = len(nums)
+        for i in range(n):
+            minIdx = i
+            for j in range(i + 1, n):
+                if nums[j] < nums[minIdx]:
+                    minIdx = j
+            tmp = nums[i]
+            nums[i] = nums[minIdx]
+            nums[minIdx] = tmp
+        print nums
+
+1. bubblesort: bubble right the larget one till end, so that the end value is the maximum value; do this iteratively untill all soted
+    def bubblesort(self, nums):
+        n = len(nums)
+        for end in range(n - 1, 0, -1):
+            for i in range(end):
+                if nums[i] > nums[i + 1]:
+                    tmp = nums[i]
+                    nums[i] = nums[i + 1]
+                    nums[i + 1] = tmp
+0. insertion sort: put num[i] in the right place of left sorted (0 ~ i - 1) to form a sorted (0 ~ i)
+def insertionsort(nums):
+    for i in range(1, len(nums)):
+        j = i
+        while j > 0 and nums[j - 1] > nums[j]:
+            nums[j - 1], nums[j] = nums[j], nums[j - 1]
+            j -= 1

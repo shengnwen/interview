@@ -1,0 +1,10 @@
+1. AVL tree
+*the height of any subtrees differ at most one.
+worst = average
+Space O(n) Insert/Search/Delete O(logn)
+
+2. Red-Black Tree
+*each node has an extra bit to indicate color
+Big o: same as AVL tree
+
+
